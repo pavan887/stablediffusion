@@ -119,6 +119,8 @@ def delete_user_api():
     response = delete_user(userid)
     return jsonify({"message": response})
 
+if __name__ == '__main__':
+        app.run(debug=True, port=9090)
 
 '''
 
