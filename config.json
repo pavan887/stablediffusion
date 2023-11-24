@@ -1,0 +1,21 @@
+{
+    "userdata_path": "path/to/folder/",
+    "usermodel_path": "path/to/folder/",
+    "HUGGINGFACE_TOKEN": "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",
+    "users": {
+        "userid1": [
+            {
+                "instance_prompt": "Photo of deepu person",
+                "class_prompt": "Photo of a person",
+                "instance_data_dir": "path/to/folderdeepu",
+                "class_data_dir": "path/to/folderperson"
+            },
+            {
+                "instance_prompt": "Photo of pavan person",
+                "class_prompt": "Photo of a person",
+                "instance_data_dir": "path/to/folderpavan",
+                "class_data_dir": "path/to/folderperson"
+            }
+        ]
+    }
+}
