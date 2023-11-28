@@ -1,8 +1,6 @@
-from flask import Flask, request, jsonify
 import json
 import os
 import shutil
-app = Flask(__name__)
 
 CONFIG_FILE = "config.json"
 
@@ -23,19 +21,22 @@ def add_user(userid,subject_id1 ,images1,subject_id2,images2):
     instance_prompt1=f"Photo of {subject_id1} person"
     instance_prompt2=f"Photo of {subject_id2} person"
     class_prompt="Photo of a person"
-    print(type(config["userdata_path"]),type(subject_id1))
-    instance_data_dir1= os.path.join(str(config["userdata_path"]),str(subject_id1))
-    instance_data_dir2= os.path.join(str(config["userdata_path"]),str(subject_id2))
+    print(config["userdata_path"],subject_id1)
+    instance_data_dir1= os.path.join(str(config["userdata_path"]),str(userid),str(subject_id1))
+    instance_data_dir2= os.path.join(str(config["userdata_path"]),str(userid),str(subject_id2))
+    user_weights= os.path.join(str(config["usermodel_path"]),str(userid))
     os.makedirs(instance_data_dir1, exist_ok=True)
     os.makedirs(instance_data_dir2, exist_ok=True)
+    os.makedirs(user_weights, exist_ok=True)
+    print(instance_data_dir1)
     # Save the images to the specified directories
-    save_images(images1, os.path.join(str(instance_data_dir1), str(subject_id1)))
-    save_images(images2, os.path.join(str(instance_data_dir2), str(subject_id2)))
+    save_images(images1, os.path.join(str(instance_data_dir1)))
+    save_images(images2, os.path.join(str(instance_data_dir2)))
     class_data_dir=config["userdata_path"]+"person"
     if config is None:
         config = {
-            "userdata_path": "path/to/folder",
-            "usermodel_path": "path/to/folder",
+            "userdata_path": "user_data",
+            "usermodel_path": "user_weights",
             "HUGGINGFACE_TOKEN": "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",
             "users": {}
         }
@@ -62,15 +63,17 @@ def delete_user(userid):
     print(list(config["users"].keys()),userid)
    # if '''config is not None and''' userid in list(config["users"].keys()):
     if userid in list(config["users"].keys()):
-        user_data = config["users"][userid]
-        print(userid,"\t exits in the config file")
+        #user_data = config["users"][userid]
+        #print(userid,"\t exits in the config file")
         # Delete instance data directories
-        for instance in user_data:
+        '''for instance in user_data:
             instance_data_dir = instance["instance_data_dir"]
             if os.path.exists(instance_data_dir):
                 print("deteletd")
-                shutil.rmtree(instance_data_dir)
-    
+                shutil.rmtree(instance_data_dir)'''
+        shutil.rmtree(os.path.join(str(config['userdata_path'],str(userid))))
+        shutil.rmtree(os.path.join(str(config['usermodel_path']),str(userid)))
+        
         del config["users"][userid]
 
         save_config(config)
@@ -93,6 +96,8 @@ def save_images(images, save_path):
 
     for i, image in enumerate(images):
         save_image(image, os.path.join(save_path, f"image{i+1}.jpg"))
+
+'''
 # API to get all users
 @app.route('/get_users', methods=['GET'])
 def get_users_api():
@@ -128,6 +133,7 @@ if __name__ == '__main__':
 
 '''
 
+'''
 # GET api
 all_users = get_all_users()
 if all_users:

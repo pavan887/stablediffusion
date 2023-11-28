@@ -1,20 +1,20 @@
 {
-    "userdata_path": "path/to/folder/",
-    "usermodel_path": "path/to/folder/",
+    "userdata_path": "user_data",
+    "usermodel_path": "user_weights",
     "HUGGINGFACE_TOKEN": "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",
     "users": {
-        "userid1": [
+        "userid1":  [
             {
-                "instance_prompt": "Photo of deepu person",
+                "instance_prompt": "Photo of subject1 person",
                 "class_prompt": "Photo of a person",
-                "instance_data_dir": "path/to/folderdeepu",
-                "class_data_dir": "path/to/folderperson"
+                "instance_data_dir": "user_data\\userid1\\subject1",
+                "class_data_dir": "user_dataperson"
             },
             {
-                "instance_prompt": "Photo of pavan person",
+                "instance_prompt": "Photo of subject2 person",
                 "class_prompt": "Photo of a person",
-                "instance_data_dir": "path/to/folderpavan",
-                "class_data_dir": "path/to/folderperson"
+                "instance_data_dir": "user_data\\userid1\\subject2",
+                "class_data_dir": "user_dataperson"
             }
         ]
     }
